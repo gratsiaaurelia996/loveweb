@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Test 💕</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ffd6ec,#ffc2e2);
+    font-family:'Press Start 2P', cursive;
+    text-align:center;
+    overflow:hidden;
+}
+
+.container{
+    max-width:600px;
+}
+
+h1{
+    font-size:16px;
+    color:#ff3f8e;
+}
+
+button{
+    font-family:'Press Start 2P', cursive;
+    font-size:10px;
+    padding:15px 20px;
+    margin:15px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    background:#ff8ec7;
+    color:white;
+    transition:0.2s;
+}
+
+button:hover{
+    transform:scale(1.1);
+    background:#ff5fa9;
+}
+
+#noBtn{
+    position:absolute;
+}
+
+.progress{
+    font-size:10px;
+    margin-bottom:20px;
+    color:#aa5a7b;
+}
+
+.heart{
+    position:absolute;
+    animation:float 4s linear infinite;
+}
+
+@keyframes float{
+    from{ transform:translateY(100vh);}
+    to{ transform:translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="progress" id="progress">Stage 1 of 7</div>
+    <h1 id="question">Do you still love me? </h1>
+
+    <div>
+        <button id="yesBtn">Yes </button>
+        <button id="noBtn">No </button>
+    </div>
+</div>
+
+<script>
+
+const questions = [
+"Do you still love me? ",
+"Like… betul betul lovee meeee? ",
+"Even when kita annoying? ",
+"Even when I marah marah trosss? ",
+"Even when I reply late? ",
+"Even when kita block ublock block unblock? ",
+"jujurrr or tidaaaaa? "
+];
+
+let current = 0;
+
+const questionEl = document.getElementById("question");
+const progressEl = document.getElementById("progress");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+// YES → lanjut stage
+yesBtn.onclick = function(){
+
+    current++;
+
+    if(current < questions.length){
+        questionEl.innerText = questions[current];
+        progressEl.innerText = "Stage " + (current+1) + " of " + questions.length;
+    }else{
+        ending();
+    }
+};
+
+// NO → kabur + drama
+noBtn.onmouseover = function(){
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 100);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    if(current >= 2){
+        alert("No isn't an option 😤");
+    }
+};
+
+function ending(){
+    document.body.innerHTML = `
+    <div style="
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:linear-gradient(135deg,#ffd6ec,#ffc2e2);
+    font-family:'Press Start 2P', cursive;
+    text-align:center;
+    color:#ff3f8e;">
+        <h1>You Passed All Levels </h1>
+        <p style="font-size:12px; margin-top:20px;">
+        Congratulations!!<br><br>
+        You unlocked:<br>
+        "Official Forever Partner (emot muntah)" <br><br>
+        Screenshot & send proof bebeee
+        </p>
+    </div>
+    `;
+
+    setInterval(createHeart,300);
+}
+
+function createHeart(){
+    let heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (Math.random()*20+10)+"px";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{heart.remove();},4000);
+}
+
+</script>
+
+</body>
+</html>
